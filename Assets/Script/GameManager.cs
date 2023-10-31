@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     float Fail = 2.0f;
     float Success = 1.0f;
 
+    public GameObject panelCanvas;
+
+    public enum names { 임종운, 변정민, 조성민, 권오태, 김윤진 }
+
     private void Awake()
     {
         if(instance == null)
@@ -38,12 +42,12 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {  
-        int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+    {
+         int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 };
 
         rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
 
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 10; i++)
         {
             Card newCard = Instantiate(Card);
             newCard.transform.parent = GameObject.Find("Cards").transform;
@@ -51,7 +55,8 @@ public class GameManager : MonoBehaviour
             newCard.x = (i / 4) * 1.4f - 2.1f;
             newCard.y = (i % 4) * 1.4f - 3.0f;
 
-            string rtanName = "rtan" + rtans[i].ToString();
+            string rtanName = System.Enum.GetName(typeof(names), rtans[i])+1; //뒤에 숫자 부분은 아직 카드가 늘어남(난이도 증가)에 따라 명명규칙을 모르는 상태
+            newCard.name = System.Enum.GetName(typeof(names), rtans[i]); //판넬을 불러오기 위해 해당 카드의 이름만 지정
             newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
         }
 
@@ -80,11 +85,15 @@ public class GameManager : MonoBehaviour
 
         if (firstCardImage == secondCardImage)
         {
+
+            int membernum = (int)System.Enum.Parse(typeof(names), FirstCard.name);
             //CardDestroy();
             FirstCard.GetComponent<Card>().DestroyCard();
             SecondCard.GetComponent<Card>().DestroyCard();
-
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
+
+            panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
+
             if(time > 1.0f)
             {
                 time -= Success;

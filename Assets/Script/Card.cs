@@ -57,7 +57,7 @@ public class Card : MonoBehaviour {
             CountDown_Coroutine = CountDownRoutine();
             StartCoroutine(CountDown_Coroutine); 
         }
-        else
+        else //if(!anim.GetBool("IsOpen")) 이거 왜 안돼냐 ㅅㅂ 생각보다 골치아픈데
         {
             GameManager.instance.SecondCard = gameObject;
             GameManager.instance.IsMatched();
