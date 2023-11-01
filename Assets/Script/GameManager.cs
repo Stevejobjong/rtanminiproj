@@ -20,10 +20,14 @@ public class GameManager : MonoBehaviour
     public Card Card;
     public GameObject FirstCard;
     public GameObject SecondCard;
+    public Text StartCountText;
 
     float time = 0.0f;
     float Fail = 2.0f;
     float Success = 1.0f;
+    public bool isStartCnt = false;
+    public bool isStart = false;
+    public float startCountDown = 3.99f;
 
     public GameObject panelCanvas;
 
@@ -65,8 +69,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime;
         TimeText.text = time.ToString("N2");
+        if (isStart) {
+        time += Time.deltaTime;
+        }
 
         if(time > 50.0f)
         {
@@ -76,6 +82,23 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }      
+    }
+    public void StartCountFunc() {
+        if (!isStartCnt) {
+            isStartCnt = true;
+            StartCoroutine(StartCount());
+        }
+    }
+    public IEnumerator StartCount() {
+        StartCountText.gameObject.SetActive(true);
+        while (startCountDown > 1.0f) {
+            startCountDown -= Time.deltaTime;
+            float n = Mathf.Floor(startCountDown);
+            StartCountText.text = n.ToString("N0");
+
+            yield return null;
+        }
+        StartCountText.gameObject.SetActive(false);
     }
 
     public void IsMatched()
