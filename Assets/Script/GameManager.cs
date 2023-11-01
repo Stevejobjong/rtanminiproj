@@ -15,24 +15,36 @@ public class GameManager : MonoBehaviour
 
     public Text TimeText;
     public Text BestScoreText;
+    public Text MatchCountText;
+
     public GameObject EndText;
 
     public Card Card;
+
+    [HideInInspector]
     public GameObject FirstCard;
+    [HideInInspector]
     public GameObject SecondCard;
+
     public Text StartCountText;
 
     float time = 0.0f;
     float Fail = 2.0f;
     float Success = 1.0f;
-    public bool isStartCnt = false;
-    public bool isStart = false;
-    public float startCountDown = 3.99f;
+    int MatchCount = 0;
 
+    [HideInInspector]
+    public bool isStartCnt = false;
+    [HideInInspector]
+    public bool isStart = false;
+
+    public float startCountDown = 3.99f;
     public GameObject panelCanvas;
+
+    [HideInInspector]
     public bool twoselect = false;
 
-    public enum names { ÀÓÁ¾¿î, º¯Á¤¹Î, Á¶¼º¹Î, ±Ç¿ÀÅÂ, ±èÀ±Áø }
+    public enum names { ì„ì¢…ìš´, ë³€ì •ë¯¼, ì¡°ì„±ë¯¼, ê¶Œì˜¤íƒœ, ê¹€ìœ¤ì§„ }
 
     private void Awake()
     {
@@ -60,8 +72,8 @@ public class GameManager : MonoBehaviour
             newCard.x = (i / 4) * 1.4f - 2.1f;
             newCard.y = (i % 4) * 1.4f - 3.0f;
 
-            string rtanName = System.Enum.GetName(typeof(names), rtans[i])+2; //µÚ¿¡ ¼ıÀÚ ºÎºĞÀº ¾ÆÁ÷ Ä«µå°¡ ´Ã¾î³²(³­ÀÌµµ Áõ°¡)¿¡ µû¶ó ¸í¸í±ÔÄ¢À» ¸ğ¸£´Â »óÅÂ
-            newCard.name = System.Enum.GetName(typeof(names), rtans[i]); //ÆÇ³ÚÀ» ºÒ·¯¿À±â À§ÇØ ÇØ´ç Ä«µåÀÇ ÀÌ¸§¸¸ ÁöÁ¤
+            string rtanName = System.Enum.GetName(typeof(names), rtans[i])+2; //ë’¤ì— ìˆ«ì ë¶€ë¶„ì€ ì•„ì§ ì¹´ë“œê°€ ëŠ˜ì–´ë‚¨(ë‚œì´ë„ ì¦ê°€)ì— ë”°ë¼ ëª…ëª…ê·œì¹™ì„ ëª¨ë¥´ëŠ” ìƒíƒœ
+            newCard.name = System.Enum.GetName(typeof(names), rtans[i]); //íŒë„¬ì„ ë¶ˆëŸ¬ì˜¤ê¸° ìœ„í•´ í•´ë‹¹ ì¹´ë“œì˜ ì´ë¦„ë§Œ ì§€ì •
             newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
         }
 
@@ -82,7 +94,8 @@ public class GameManager : MonoBehaviour
             {
                 GameOver();
             }
-        }      
+        }
+        MatchCountText.text = "Try : " + MatchCount;
     }
     public void StartCountFunc() {
         if (!isStartCnt) {
@@ -104,6 +117,8 @@ public class GameManager : MonoBehaviour
 
     public void IsMatched()
     {
+        MatchCount++;
+
         string firstCardImage = FirstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = SecondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
