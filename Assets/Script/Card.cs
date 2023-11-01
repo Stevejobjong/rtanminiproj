@@ -105,8 +105,11 @@ public class Card : MonoBehaviour {
 
     void CloseCardInvoke()
     {
+
         anim.SetBool("IsOpen", false);
         transform.Find("back").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
+
     }
+
 }
