@@ -29,8 +29,10 @@ public class GameManager : MonoBehaviour
     public Text StartCountText;
 
     float time = 0.0f;
-    float Fail = 2.0f;
-    float Success = 1.0f;
+    float Fail = 3.0f;
+    //float Success = 1.0f;
+    public float TimeLimit; // 인스펙터창에서 남은시간 조절할수있게
+    float RemainTime;
     int MatchCount = 0;
 
     [HideInInspector]
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+         RemainTime = TimeLimit;
          int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 };
 
         rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
@@ -82,15 +85,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        TimeText.text = time.ToString("N2");
+        TimeText.text = RemainTime.ToString("N2");
         if (isStart) {
-        time += Time.deltaTime;
+            time += Time.deltaTime;
+            RemainTime = TimeLimit - time;
         }
 
-        if(time > 50.0f)
+        if(RemainTime <= 10.0f)
         {
             TimeText.color = new Color32(255,0,0,255);
-            if (time >= 60.0f)
+            if (RemainTime <= 0.0f)
             {
                 GameOver();
             }
@@ -133,30 +137,34 @@ public class GameManager : MonoBehaviour
 
             panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
 
-            if(time > 1.0f)
+            /* 성공했을때 시간추가하는부분 삭제
+            if(time < 58.0f)
             {
-                time -= Success;
-            }           
-            if (cardsLeft == 2)
+                time += Success;
+            }
+            */
+
+            /*
+            if (cardsLeft == 2) // 이부분은 남은카드가 2개일때 바로 종료하는 코드인가? 일단 삭제
             {
                 //EndText.SetActive(true);
                 //Time.timeScale = 0.0f;
                 GameOver();
-            }            
+            }
+            */
         }
         else
         {
             //CardClose();
             FirstCard.GetComponent<Card>().CloseCard();
             SecondCard.GetComponent<Card>().CloseCard();            
-            if(time < 58.0f)
+            if(RemainTime > 3.0f)
             {
                 time += Fail;
             }
             else
             {
-                time = 60.0f;
-                Time.timeScale = 0.0f;
+                GameOver();
             }
         }
 
@@ -169,13 +177,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         if (PlayerPrefs.HasKey("BestScore") == false)
         {
-            PlayerPrefs.SetFloat("BestScore" , time);
+            PlayerPrefs.SetFloat("BestScore" , RemainTime);
         }
         else
         {
-            if(time < PlayerPrefs.GetFloat("BestScore"))
+            if(RemainTime < PlayerPrefs.GetFloat("BestScore"))
             {
-                PlayerPrefs.SetFloat("BestScore", time);
+                PlayerPrefs.SetFloat("BestScore", RemainTime);
             }
         }
         float BestScore = PlayerPrefs.GetFloat("BestScore");
