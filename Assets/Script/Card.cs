@@ -18,7 +18,7 @@ public class Card : MonoBehaviour {
     public Animator anim;
     public Text CountDownText;
  
-    private float CountDown = 5.0f;
+    private float CountDown = 5.0f; 
 
     private IEnumerator CountDown_Coroutine;
     private void Start()
@@ -60,6 +60,7 @@ public class Card : MonoBehaviour {
             GameManager.instance.IsMatched();
         }
     }
+
     IEnumerator CountDownRoutine()  //첫 카드 오픈시 5초 카운트 다운
     {        
         while(CountDown > 0.0f)
@@ -79,12 +80,8 @@ public class Card : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, new Vector3(x, y, 0), Time.deltaTime * 5);
             yield return null;
         }
-        anim.SetBool("IsOpen", true);
-        transform.Find("back").gameObject.SetActive(false);
-        transform.Find("front").gameObject.SetActive(true);
-        GameManager.instance.StartCountFunc();
-        yield return new WaitForSeconds(GameManager.instance.startCountDown-1.0f);
-        anim.SetBool("IsOpen", false);
+        yield return new WaitForSeconds(2.0f);
+        transform.Find("Canvas(CountDown)").gameObject.SetActive(false);
         transform.Find("back").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
         GameManager.instance.isStart = true;

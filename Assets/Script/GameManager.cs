@@ -15,19 +15,16 @@ public class GameManager : MonoBehaviour
 
     public Text TimeText;
     public Text BestScoreText;
-    public Text StartCountText;
     public GameObject EndText;
 
     public Card Card;
     public GameObject FirstCard;
     public GameObject SecondCard;
     public bool isStart = false;
-    public bool isStartCnt = false;
 
     float time = 0.0f;
     float Fail = 2.0f;
     float Success = 1.0f;
-    public float startCountDown = 3.99f;
 
     private void Awake()
     {
@@ -62,10 +59,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    private void Update() {
-        TimeText.text = time.ToString("N2");
+    private void Update()
+    {
         if (isStart) {
             time += Time.deltaTime;
+            TimeText.text = time.ToString("N2");
         }
 
         if (time > 50.0f)
@@ -121,23 +119,6 @@ public class GameManager : MonoBehaviour
         SecondCard = null;
     }
 
-    public void StartCountFunc() {
-        if (!isStartCnt) {
-            isStartCnt = true;
-            StartCoroutine(StartCount());
-        }
-    }
-    public IEnumerator StartCount() {
-        StartCountText.gameObject.SetActive(true);
-        while (startCountDown > 1.0f) {
-            startCountDown -= Time.deltaTime;
-            float n = Mathf.Floor(startCountDown);
-            StartCountText.text = n.ToString("N0");
-
-            yield return null;
-        }
-        StartCountText.gameObject.SetActive(false);
-    }
     void GameOver()
     {
         Time.timeScale = 0.0f;
@@ -156,5 +137,4 @@ public class GameManager : MonoBehaviour
         EndText.SetActive(true);
         BestScoreText.text = BestScore.ToString("N2");
     }
-
 }
