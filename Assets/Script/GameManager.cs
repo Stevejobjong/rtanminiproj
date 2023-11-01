@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
             newCard.x = (i / 4) * 1.4f - 2.1f;
             newCard.y = (i % 4) * 1.4f - 3.0f;
 
-            string rtanName = System.Enum.GetName(typeof(names), rtans[i])+1; //뒤에 숫자 부분은 아직 카드가 늘어남(난이도 증가)에 따라 명명규칙을 모르는 상태
+            string rtanName = System.Enum.GetName(typeof(names), rtans[i])+2; //뒤에 숫자 부분은 아직 카드가 늘어남(난이도 증가)에 따라 명명규칙을 모르는 상태
             newCard.name = System.Enum.GetName(typeof(names), rtans[i]); //판넬을 불러오기 위해 해당 카드의 이름만 지정
             newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
         }

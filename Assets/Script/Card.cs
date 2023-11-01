@@ -51,7 +51,7 @@ public class Card : MonoBehaviour {
             CountDown_Coroutine = CountDownRoutine();
             StartCoroutine(CountDown_Coroutine); 
         }
-        else //if(!anim.GetBool("IsOpen")) 이거 왜 안돼냐 ㅅㅂ 생각보다 골치아픈데
+        else
         {
             if (gameObject == GameManager.instance.FirstCard)   //같은 카드 선택시 인정X
                 return;
@@ -105,8 +105,11 @@ public class Card : MonoBehaviour {
 
     void CloseCardInvoke()
     {
+
         anim.SetBool("IsOpen", false);
         transform.Find("back").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
+
     }
+
 }
