@@ -16,7 +16,7 @@ public class ImageAnim : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            GameObject newImg = Instantiate(ImagePrefab, new Vector3(0f + (i * 6f), -0.5f, 0f), Quaternion.identity);
+            GameObject newImg = Instantiate(ImagePrefab, new Vector3(0f + (i * 6f), -1f, 0f), Quaternion.identity);
             newImg.transform.parent = GameObject.Find("ImageWithAnim").transform;
 
             string imageName = images[i].ToString();
@@ -29,7 +29,7 @@ public class ImageAnim : MonoBehaviour
 
     void FixedUpdate()
     {
-        //speed는 이미지 이동 속도(기본값 = 0.05f)
+        //speed는 이미지 이동 속도(기본값 = 0.03f)
         transform.position += new Vector3(-speed, 0f, 0f);
     }
 
