@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public float startCountDown = 3.99f;
 
     public GameObject panelCanvas;
+    public bool twoselect = false;
 
     public enum names { ÀÓÁ¾¿î, º¯Á¤¹Î, Á¶¼º¹Î, ±Ç¿ÀÅÂ, ±èÀ±Áø }
 
