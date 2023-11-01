@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public static class Coroutine_Caching
+public static class Coroutine_Caching   //코루틴 최적화(캐싱하여 가비지를 줄인다)
 {
     public static readonly WaitForFixedUpdate WaitForFixedUpdate 
         = new WaitForFixedUpdate();
@@ -16,14 +16,8 @@ public class Card : MonoBehaviour {
     public float x, y;  //원래 카드의 좌표
 
     public Animator anim;
-
     public Text CountDownText;
  
-    //private void Start() {
-    //        GameManager.CardDestroy += DestroyCard;
-    //        GameManager.CardClose += CloseCard;
-    //    
-    //}
     private float CountDown = 5.0f; 
 
     private IEnumerator CountDown_Coroutine;
@@ -59,12 +53,15 @@ public class Card : MonoBehaviour {
         }
         else //if(!anim.GetBool("IsOpen")) 이거 왜 안돼냐 ㅅㅂ 생각보다 골치아픈데
         {
+            if (gameObject == GameManager.instance.FirstCard)   //같은 카드 선택시 인정X
+                return;
+
             GameManager.instance.SecondCard = gameObject;
             GameManager.instance.IsMatched();
         }
     }
 
-    IEnumerator CountDownRoutine()
+    IEnumerator CountDownRoutine()  //첫 카드 오픈시 5초 카운트 다운
     {        
         while(CountDown > 0.0f)
         {
@@ -74,8 +71,8 @@ public class Card : MonoBehaviour {
             yield return null;
         }        
         CountDown = 5.0f;
-        GameManager.instance.FirstCard = null;
-        CloseCard();               
+        GameManager.instance.FirstCard = null;  //5초가 지나면 첫 카드 해제 후
+        CloseCard();                            //카드 다시 뒤집기
     }
     IEnumerator MoveOnPlace() { //원래 자리로 이동
         yield return new WaitForSeconds(0.5f);
