@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public Text MatchCountText;
 
     public GameObject EndText;
-
     public Card Card;
 
     [HideInInspector]
@@ -155,6 +154,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            TimeText.GetComponent<Animator>().SetTrigger("isFail");
             //CardClose();
             FirstCard.GetComponent<Card>().CloseCard();
             SecondCard.GetComponent<Card>().CloseCard();            
@@ -164,7 +164,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                GameOver();
+                RemainTime = 0.01f;
+                //GameOver();
             }
         }
 

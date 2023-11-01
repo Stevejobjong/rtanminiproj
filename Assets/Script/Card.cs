@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public static class Coroutine_Caching   //ÄÚ·çÆ¾ ÃÖÀûÈ­(Ä³½ÌÇÏ¿© °¡ºñÁö¸¦ ÁÙÀÎ´Ù)
+public static class Coroutine_Caching   //ì½”ë£¨í‹´ ìµœì í™”(ìºì‹±í•˜ì—¬ ê°€ë¹„ì§€ë¥¼ ì¤„ì¸ë‹¤)
 {
     public static readonly WaitForFixedUpdate WaitForFixedUpdate 
         = new WaitForFixedUpdate();
@@ -13,7 +13,7 @@ public static class Coroutine_Caching   //ÄÚ·çÆ¾ ÃÖÀûÈ­(Ä³½ÌÇÏ¿© °¡ºñÁö¸¦ ÁÙÀÎ´Ù
 }
 
 public class Card : MonoBehaviour {
-    public float x, y;  //¿ø·¡ Ä«µåÀÇ ÁÂÇ¥
+    public float x, y;  //ì›ë˜ ì¹´ë“œì˜ ì¢Œí‘œ
 
     public Animator anim;
     public Text CountDownText;
@@ -25,7 +25,7 @@ public class Card : MonoBehaviour {
     {
         CountDown_Coroutine = CountDownRoutine();
 
-        //x°ªÀÌ 0º¸´Ù ÀÛ°Å³ª °°À¸¸é x-5ÀÇ À§Ä¡¿¡¼­ Å©¸é x+5ÀÇ À§Ä¡¿¡¼­ ½ÃÀÛ
+        //xê°’ì´ 0ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ìœ¼ë©´ x-5ì˜ ìœ„ì¹˜ì—ì„œ í¬ë©´ x+5ì˜ ìœ„ì¹˜ì—ì„œ ì‹œì‘
         if (x <= 0) {
             transform.position = new Vector3(x - 5.0f, y, 0);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180f));
@@ -55,7 +55,7 @@ public class Card : MonoBehaviour {
             }
             else
             {
-                if (gameObject == GameManager.instance.FirstCard)   //°°Àº Ä«µå ¼±ÅÃ½Ã ÀÎÁ¤X
+                if (gameObject == GameManager.instance.FirstCard)   //ê°™ì€ ì¹´ë“œ ì„ íƒì‹œ ì¸ì •X
                     return;
 
                 GameManager.instance.twoselect = true;
@@ -66,7 +66,7 @@ public class Card : MonoBehaviour {
 
     }
 
-    IEnumerator CountDownRoutine()  //Ã¹ Ä«µå ¿ÀÇÂ½Ã 5ÃÊ Ä«¿îÆ® ´Ù¿î
+    IEnumerator CountDownRoutine()  //ì²« ì¹´ë“œ ì˜¤í”ˆì‹œ 5ì´ˆ ì¹´ìš´íŠ¸ ë‹¤ìš´
     {        
         while(CountDown > 0.0f)
         {
@@ -76,12 +76,12 @@ public class Card : MonoBehaviour {
             yield return null;
         }        
         CountDown = 5.0f;
-        GameManager.instance.FirstCard = null;  //5ÃÊ°¡ Áö³ª¸é Ã¹ Ä«µå ÇØÁ¦ ÈÄ
-        CloseCard();                            //Ä«µå ´Ù½Ã µÚÁı±â
+        GameManager.instance.FirstCard = null;  //5ì´ˆê°€ ì§€ë‚˜ë©´ ì²« ì¹´ë“œ í•´ì œ í›„
+        CloseCard2();                            //ì¹´ë“œ ë‹¤ì‹œ ë’¤ì§‘ê¸°
     }
-    IEnumerator MoveOnPlace() { //¿ø·¡ ÀÚ¸®·Î ÀÌµ¿
+    IEnumerator MoveOnPlace() { //ì›ë˜ ìë¦¬ë¡œ ì´ë™
         yield return new WaitForSeconds(0.5f);
-        while (abs(x - transform.position.x) > 0.01f) { //¿ø·¡ ÀÖ¾î¾ßÇÒ À§Ä¡¿Í ÇöÀç À§Ä¡ÀÇ Â÷ÀÌ°¡ 0.01f¸¦ ³ÑÀ¸¸é °è¼Ó ÀÌµ¿
+        while (abs(x - transform.position.x) > 0.01f) { //ì›ë˜ ìˆì–´ì•¼í•  ìœ„ì¹˜ì™€ í˜„ì¬ ìœ„ì¹˜ì˜ ì°¨ì´ê°€ 0.01fë¥¼ ë„˜ìœ¼ë©´ ê³„ì† ì´ë™
             transform.position = Vector3.Lerp(transform.position, new Vector3(x, y, 0), Time.deltaTime * 5);
             yield return null;
         }
@@ -95,7 +95,7 @@ public class Card : MonoBehaviour {
         transform.Find("front").gameObject.SetActive(false);
         GameManager.instance.isStart = true;
     }
-    float abs(float x) { //Àı´ë°ª
+    float abs(float x) { //ì ˆëŒ€ê°’
         return x < 0 ? x * -1 : x;
     }
     public void DestroyCard()
@@ -115,7 +115,15 @@ public class Card : MonoBehaviour {
     {
         transform.Find("Canvas(CountDown)").gameObject.SetActive(false);
         StopCoroutine(CountDown_Coroutine);
-        Invoke("CloseCardInvoke", 0.7f);
+        Invoke("CloseCardInvoke", 1f);
+    }
+
+    public void CloseCard2()
+    {
+        transform.Find("Canvas(CountDown)").gameObject.SetActive(false);
+        StopCoroutine(CountDown_Coroutine);
+        //Invoke("CloseCardInvoke", 0.01f);
+        CloseCardInvoke();
     }
 
     void CloseCardInvoke()
