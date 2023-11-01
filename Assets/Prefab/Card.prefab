@@ -246,6 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87622e92b61873e4c8ee98eb440ae1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 0
+  y: 0
   anim: {fileID: 7285712116355792787}
   CountDownText: {fileID: 6098032431522386004}
 --- !u!114 &4075155565514966849
@@ -399,7 +401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9026516770933017691
 Transform:
   m_ObjectHideFlags: 0
@@ -481,7 +483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9026516771275037624
 Transform:
   m_ObjectHideFlags: 0

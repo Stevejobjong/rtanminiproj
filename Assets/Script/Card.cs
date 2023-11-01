@@ -78,8 +78,17 @@ public class Card : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         while (abs(x - transform.position.x) > 0.01f) { //원래 있어야할 위치와 현재 위치의 차이가 0.01f를 넘으면 계속 이동
             transform.position = Vector3.Lerp(transform.position, new Vector3(x, y, 0), Time.deltaTime * 5);
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
         }
+        anim.SetBool("IsOpen", true);
+        //transform.Find("back").gameObject.SetActive(false);
+        //transform.Find("front").gameObject.SetActive(true);
+        GameManager.instance.StartCountFunc();
+        yield return new WaitForSeconds(GameManager.instance.startCountDown - 1.0f);
+        anim.SetBool("IsOpen", false);
+        transform.Find("back").gameObject.SetActive(true);
+        transform.Find("front").gameObject.SetActive(false);
+        GameManager.instance.isStart = true;
     }
     float abs(float x) { //절대값
         return x < 0 ? x * -1 : x;
@@ -105,8 +114,11 @@ public class Card : MonoBehaviour {
 
     void CloseCardInvoke()
     {
+
         anim.SetBool("IsOpen", false);
         transform.Find("back").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
+
     }
+
 }
