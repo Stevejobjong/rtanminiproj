@@ -80,6 +80,11 @@ public class Card : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, new Vector3(x, y, 0), Time.deltaTime * 5);
             yield return new WaitForSeconds(Time.deltaTime);
         }
+        transform.Find("Canvas(CountDown)").gameObject.SetActive(false);
+        transform.Find("back").gameObject.SetActive(true);
+        transform.Find("front").gameObject.SetActive(false);
+        yield return null;
+        GameManager.instance.isStart = true;
     }
     float abs(float x) { //Àý´ë°ª
         return x < 0 ? x * -1 : x;

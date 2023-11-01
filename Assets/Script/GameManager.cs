@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public Card Card;
     public GameObject FirstCard;
     public GameObject SecondCard;
+    public bool isStart = false;
 
     float time = 0.0f;
     float Fail = 2.0f;
@@ -60,10 +61,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime;
-        TimeText.text = time.ToString("N2");
+        if (isStart) {
+            time += Time.deltaTime;
+            TimeText.text = time.ToString("N2");
+        }
 
-        if(time > 50.0f)
+        if (time > 50.0f)
         {
             TimeText.color = new Color32(255,0,0,255);
             if (time >= 60.0f)
