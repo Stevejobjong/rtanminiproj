@@ -14,10 +14,8 @@ public class GameManager : MonoBehaviour
     //public static event CloseFunction CardClose;
 
     public Text TimeText;
-    public Text bestS;
-    public Text bestSTitle;
-    public Text endText;
-    public GameObject Finish;
+    public Text BestScoreText;
+    public GameObject EndText;
 
     public Card Card;
     public GameObject FirstCard;
@@ -120,15 +118,6 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        if (time < 60.0f)
-        {
-            endText.text = "Clear!";
-        }
-        else
-        {
-            endText.text = "Game Over!";
-        }
-
         Time.timeScale = 0.0f;
         if (PlayerPrefs.HasKey("BestScore") == false)
         {
@@ -142,7 +131,7 @@ public class GameManager : MonoBehaviour
             }
         }
         float BestScore = PlayerPrefs.GetFloat("BestScore");
-        bestS.text = BestScore.ToString("N2");
-        Finish.SetActive(true);
+        EndText.SetActive(true);
+        BestScoreText.text = BestScore.ToString("N2");
     }
 }
