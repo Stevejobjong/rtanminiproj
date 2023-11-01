@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            TimeText.GetComponent<Animator>().SetTrigger("isFail");
+            TimeText.GetComponent<Animator>().SetTrigger("isFail"); //틀렸을때 색깔 빨갛게 하는 애니메이션 트리거
             //CardClose();
             FirstCard.GetComponent<Card>().CloseCard();
             SecondCard.GetComponent<Card>().CloseCard();            
