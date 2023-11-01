@@ -40,25 +40,30 @@ public class Card : MonoBehaviour {
 
     public void OpenCard()
     {
-        anim.SetBool("IsOpen", true);
-        transform.Find("front").gameObject.SetActive(true);
-        transform.Find("back").gameObject.SetActive(false);                  
-
-        if (GameManager.instance.FirstCard == null)
+        if (!GameManager.instance.twoselect)
         {
-            GameManager.instance.FirstCard = gameObject;
-            CountDown = 5.0f;
-            CountDown_Coroutine = CountDownRoutine();
-            StartCoroutine(CountDown_Coroutine); 
-        }
-        else
-        {
-            if (gameObject == GameManager.instance.FirstCard)   //같은 카드 선택시 인정X
-                return;
+            anim.SetBool("IsOpen", true);
+            transform.Find("front").gameObject.SetActive(true);
+            transform.Find("back").gameObject.SetActive(false);
 
-            GameManager.instance.SecondCard = gameObject;
-            GameManager.instance.IsMatched();
+            if (GameManager.instance.FirstCard == null)
+            {
+                GameManager.instance.FirstCard = gameObject;
+                CountDown = 5.0f;
+                CountDown_Coroutine = CountDownRoutine();
+                StartCoroutine(CountDown_Coroutine);
+            }
+            else
+            {
+                if (gameObject == GameManager.instance.FirstCard)   //같은 카드 선택시 인정X
+                    return;
+
+                GameManager.instance.twoselect = true;
+                GameManager.instance.SecondCard = gameObject;
+                GameManager.instance.IsMatched();
+            }
         }
+
     }
 
     IEnumerator CountDownRoutine()  //첫 카드 오픈시 5초 카운트 다운
@@ -103,6 +108,7 @@ public class Card : MonoBehaviour {
     void DestroyCardInvoke()
     {
         Destroy(gameObject);
+        GameManager.instance.twoselect = false;
     }
 
     public void CloseCard()
@@ -114,11 +120,10 @@ public class Card : MonoBehaviour {
 
     void CloseCardInvoke()
     {
-
         anim.SetBool("IsOpen", false);
         transform.Find("back").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
-
+        GameManager.instance.twoselect = false;
     }
 
 }
