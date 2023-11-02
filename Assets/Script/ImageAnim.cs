@@ -16,7 +16,7 @@ public class ImageAnim : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            GameObject newImg = Instantiate(ImagePrefab, new Vector3(0f + (i * 6f), -1f, 0f), Quaternion.identity);
+            GameObject newImg = Instantiate(ImagePrefab, new Vector3(0f + (i * 5f), -1.15f, 0f), Quaternion.identity);
             newImg.transform.parent = GameObject.Find("ImageWithAnim").transform;
 
             string imageName = images[i].ToString();
@@ -36,7 +36,7 @@ public class ImageAnim : MonoBehaviour
     void Update()
     {
         //이미지가 화면 밖으로 넘어가면 반복되도록
-        if (transform.position.x < -60f)
+        if (transform.position.x < -50.5f)
         {
             transform.position = new Vector3(5.56f, 0f, 0f);
         }
