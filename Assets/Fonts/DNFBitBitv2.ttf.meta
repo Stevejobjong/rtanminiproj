@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d6f2a9e98fe4c3f4b80abedb790f536e
+guid: 1f56955cd5a81884f91d057def69affa
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - UhBee ZZIBA
+  - DNF Bit Bit v2
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
