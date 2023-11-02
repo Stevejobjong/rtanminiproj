@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     //public static event DetroyFunction CardDestroy;
     //public static event CloseFunction CardClose;
 
+    public GameObject bg;
     public Text TimeText;
     public Text BestSText;
     public Text endText;
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
 
         if(RemainTime <= 10.0f)
         {
+            bg.GetComponent<Animator>().SetBool("warning", true);
             TimeText.color = new Color32(255,0,0,255);
             if (RemainTime <= 0.0f)
             {
