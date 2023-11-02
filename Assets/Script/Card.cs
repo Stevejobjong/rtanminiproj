@@ -48,7 +48,11 @@ public class Card : MonoBehaviour {
             anim.SetBool("IsOpen", true);
             transform.Find("front").gameObject.SetActive(true);
             transform.Find("back").gameObject.SetActive(false);
-
+            string name = gameObject.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
+            if (name == "폭탄a2" || name == "폭탄b2" || name == "폭탄c2") {
+                Invoke("Bomb", 1.0f);
+                return;
+            }
             if (GameManager.instance.FirstCard == null)
             {
                 GameManager.instance.FirstCard = gameObject;
@@ -137,5 +141,7 @@ public class Card : MonoBehaviour {
         back_spriteRenderer.color = (Color)(new Color32(189, 189, 189, 255));
         GameManager.instance.twoselect = false;
     }
-
+    void Bomb() {
+        Destroy(gameObject);
+    }
 }

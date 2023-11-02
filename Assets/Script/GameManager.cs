@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool twoselect = false;
 
-    public enum names { 임종운, 변정민, 조성민, 권오태, 김윤진 }
+    public enum names { 임종운, 변정민, 조성민, 권오태, 김윤진, 폭탄a, 폭탄b, 폭탄c }
 
     private void Awake()
     {
@@ -67,11 +67,11 @@ public class GameManager : MonoBehaviour
     {
          SoundManager.instance.bgSound.pitch = 1f; // 속도는 다시 원상태로 복구
          RemainTime = TimeLimit;
-         int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 };
+         int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
 
         rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 16; i++)
         {
             Card newCard = Instantiate(Card);
             newCard.transform.parent = GameObject.Find("Cards").transform;
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
 
             panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
 
-            if (remainingCards == 2)
+            if (remainingCards == 8)
             {
                 Time.timeScale = 0.0f;
                 endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어
