@@ -2139,7 +2139,7 @@ MonoBehaviour:
   FirstCard: {fileID: 0}
   SecondCard: {fileID: 0}
   StartCountText: {fileID: 770986545}
-  TimeLimit: 35
+  TimeLimit: 40
   isStartCnt: 0
   isStart: 0
   startCountDown: 3.99
