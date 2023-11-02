@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
     float Fail = 3.0f;
     //float Success = 1.0f;
     public float TimeLimit; // 인스펙터창에서 남은시간 조절할수있게
-    float RemainTime;
-    int MatchCount = 0;
+    float RemainTime; // 남은시간
+    int MatchCount = 0; // 매칭 시도횟수
 
     [HideInInspector]
     public bool isStartCnt = false;
@@ -93,10 +93,11 @@ public class GameManager : MonoBehaviour
             RemainTime = TimeLimit - time;
         }
 
-        if(RemainTime <= 10.0f)
+        if(RemainTime <= 10.0f) // 10초 남았을때
         {
-            bg.GetComponent<Animator>().SetBool("warning", true);
-            TimeText.color = new Color32(255,0,0,255);
+            SoundManager.instance.bgSound.pitch = 1.2f; // 브금 속도 바르게 변경
+            bg.GetComponent<Animator>().SetBool("warning", true); // 배경 빨갛게 깜빡이며 경고느낌 나게하기
+            //TimeText.color = new Color32(255,0,0,255);
             if (RemainTime <= 0.0f)
             {
                 endText.text = "Game Over!!";  // 시간 초과인 경우 게임 오버
@@ -147,25 +148,10 @@ public class GameManager : MonoBehaviour
                 endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어
                 GameOver();
             }
-
-            /*if (cardsLeft <= 1) // 이부분은 남은카드가 2개일때 바로 종료하는 코드인가? 일단 삭제
-            {
-                endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어
-                GameOver();
-            }*/
-
-            /* 성공했을때 시간추가하는부분 삭제
-            if(time < 58.0f)
-            {
-                time += Success;
-            }
-            */
-
         }
         else
         {
             TimeText.GetComponent<Animator>().SetTrigger("isFail"); //틀렸을때 색깔 빨갛게 하는 애니메이션 트리거
-            //CardClose();
             FirstCard.GetComponent<Card>().CloseCard();
             SecondCard.GetComponent<Card>().CloseCard();            
             if(RemainTime > 3.0f)
@@ -208,5 +194,7 @@ public class GameManager : MonoBehaviour
         endTxt.SetActive(true);
         BestSText.text = BestScore.ToString("N2");
         isStart = false;
+        SoundManager.instance.bgSound.Stop(); // 게임오버될때 브금멈추기
+        SoundManager.instance.bgSound.pitch = 1f; // 속도는 다시 원상태로 복구
     }
 }
