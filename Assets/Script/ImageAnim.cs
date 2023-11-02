@@ -20,7 +20,7 @@ public class ImageAnim : MonoBehaviour
             newImg.transform.parent = GameObject.Find("ImageWithAnim").transform;
 
             string imageName = images[i].ToString();
-            print(imageName);
+            //print(imageName);
             newImg.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
 
             newImg.transform.position += Vector3.forward * Time.deltaTime;

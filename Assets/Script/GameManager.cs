@@ -135,6 +135,7 @@ public class GameManager : MonoBehaviour
 
         if (firstCardImage == secondCardImage)
         {
+            SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.soundEffect[1]); //매칭성공효과음
             int membernum = (int)System.Enum.Parse(typeof(names), FirstCard.name);
             //CardDestroy();
             FirstCard.GetComponent<Card>().DestroyCard();
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.soundEffect[2]); //매칭실패효과음
             TimeText.GetComponent<Animator>().SetTrigger("isFail"); //틀렸을때 색깔 빨갛게 하는 애니메이션 트리거
             FirstCard.GetComponent<Card>().CloseCard();
             SecondCard.GetComponent<Card>().CloseCard();            
@@ -174,10 +176,12 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        Time.timeScale = 0.0f;
+        
+        
 
         if (endText.text == "Clear!!")
         {
+            SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.soundEffect[3]); //클리어 효과음
             if (PlayerPrefs.HasKey("BestSText") == false)
             {
                 PlayerPrefs.SetFloat("BestSText", RemainTime);
@@ -190,13 +194,22 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.soundEffect[4]); //실패 효과음
+        }
 
         float BestScore = PlayerPrefs.GetFloat("BestSText");
 
         endTxt.SetActive(true);
         BestSText.text = BestScore.ToString("N2");
         isStart = false;
-        SoundManager.instance.bgSound.Stop(); // 게임오버될때 브금멈추기
+        Invoke("Stopbgsound", 0.5f);
         SoundManager.instance.bgSound.pitch = 1f; // 속도는 다시 원상태로 복구
+        Time.timeScale = 0.0f;
+    }
+    void Stopbgsound()
+    {
+        SoundManager.instance.bgSound.Stop(); // 게임오버될때 브금멈추기
     }
 }

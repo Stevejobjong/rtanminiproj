@@ -45,6 +45,7 @@ public class Card : MonoBehaviour {
     {
         if (!GameManager.instance.twoselect)
         {
+            SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.soundEffect[0]); //카드클릭효과음
             anim.SetBool("IsOpen", true);
             transform.Find("front").gameObject.SetActive(true);
             transform.Find("back").gameObject.SetActive(false);
