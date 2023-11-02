@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 public class StartBtn : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip startBtn;
+    public AudioClip clip;
 
     // Start is called before the first frame update
     public void OnBtnStart()
     {
-        audioSource.PlayOneShot(startBtn);
+        SoundManager.instance.SFXPlay("StartBtn", clip);
         //버튼 클릭 시 buttonpress로 이미지 변경
         GetComponent<Image>().sprite = Resources.Load<Sprite>("buttonpress");
         transform.position = new Vector3(transform.position.x, transform.position.y - 27.0f, 0);//버튼 눌릴때 살짝 아래로
