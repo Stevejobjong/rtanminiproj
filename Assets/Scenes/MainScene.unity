@@ -2466,7 +2466,7 @@ MonoBehaviour:
   TimeLimit: 35
   isStartCnt: 0
   isStart: 0
-  startCountDown: 3
+  startCountDown: 3.99
   panelCanvas: {fileID: 5561831661016395778}
   twoselect: 0
 --- !u!4 &2013088382
