@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
         TimeText.text = RemainTime.ToString("N2");
         if (isStart) {
             time += Time.deltaTime;
