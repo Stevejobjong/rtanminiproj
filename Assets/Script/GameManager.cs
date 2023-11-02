@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public bool twoselect = false;
+    public int bombcount = 6;
 
     public enum names { 임종운, 변정민, 조성민, 권오태, 김윤진, 폭탄a, 폭탄b, 폭탄c }
 
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
 
             panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
 
-            if (remainingCards == 8)
+            if (remainingCards == 2+bombcount)
             {
                 Time.timeScale = 0.0f;
                 endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어

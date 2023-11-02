@@ -51,6 +51,7 @@ public class Card : MonoBehaviour {
             transform.Find("back").gameObject.SetActive(false);
             string name = gameObject.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
             if (name == "폭탄a2" || name == "폭탄b2" || name == "폭탄c2") {
+                GameManager.instance.bombcount--;
                 Invoke("Bomb", 1.0f);
                 return;
             }
