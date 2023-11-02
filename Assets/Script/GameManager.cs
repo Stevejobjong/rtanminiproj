@@ -146,7 +146,9 @@ public class GameManager : MonoBehaviour
 
             panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
 
-            if (remainingCards == 2+bombcount)
+            if (remainingCards == 2 + bombcount || remainingCards == 3) 
+                // 3인경우는 매칭카드2 폭탄 하나 남았을때 카드 폭탄 카드 순으로 빠르게 눌렀을때 클리어가 되지 않는 버그 해결해줌
+                // 카드 폭탄 카드 눌렀을때 폭탄이 바로 사라지는게 아니기 떄문에 매칭되더라도 카드가 3개 남아있는 걸로 인식됨
             {
                 Time.timeScale = 0.0f;
                 endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어

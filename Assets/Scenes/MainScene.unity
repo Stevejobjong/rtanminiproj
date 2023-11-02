@@ -3199,12 +3199,13 @@ MonoBehaviour:
   FirstCard: {fileID: 0}
   SecondCard: {fileID: 0}
   StartCountText: {fileID: 770986545}
-  TimeLimit: 40
+  TimeLimit: 60
   isStartCnt: 0
   isStart: 0
   startCountDown: 3.99
   panelCanvas: {fileID: 5561831661016395778}
   twoselect: 0
+  bombcount: 6
 --- !u!4 &2013088382
 Transform:
   m_ObjectHideFlags: 0
