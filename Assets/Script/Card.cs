@@ -24,7 +24,7 @@ public class Card : MonoBehaviour {
     private IEnumerator CountDown_Coroutine;
     private void Start()
     {
-        back_spriteRenderer = transform.Find("Back").GetComponent<SpriteRenderer>();
+        back_spriteRenderer = transform.Find("back").GetComponent<SpriteRenderer>();
 
         CountDown_Coroutine = CountDownRoutine();
 
