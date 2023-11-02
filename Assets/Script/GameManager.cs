@@ -14,11 +14,13 @@ public class GameManager : MonoBehaviour
     //public static event CloseFunction CardClose;
 
     public Text TimeText;
-    public Text BestScoreText;
+    public Text BestSText;
+    public Text endText;
     public Text MatchCountText;
 
-    public GameObject EndText;
+    public GameObject endTxt;
     public Card Card;
+    public Transform cards;
 
     [HideInInspector]
     public GameObject FirstCard;
@@ -95,6 +97,7 @@ public class GameManager : MonoBehaviour
             TimeText.color = new Color32(255,0,0,255);
             if (RemainTime <= 0.0f)
             {
+                endText.text = "Game Over!!";  // 시간 초과인 경우 게임 오버
                 GameOver();
             }
         }
@@ -127,14 +130,27 @@ public class GameManager : MonoBehaviour
 
         if (firstCardImage == secondCardImage)
         {
-
             int membernum = (int)System.Enum.Parse(typeof(names), FirstCard.name);
             //CardDestroy();
             FirstCard.GetComponent<Card>().DestroyCard();
             SecondCard.GetComponent<Card>().DestroyCard();
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
+            int remainingCards = cards.childCount;
 
             panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
+
+            if (remainingCards == 2)
+            {
+                Time.timeScale = 0.0f;
+                endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어
+                GameOver();
+            }
+
+            /*if (cardsLeft <= 1) // 이부분은 남은카드가 2개일때 바로 종료하는 코드인가? 일단 삭제
+            {
+                endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어
+                GameOver();
+            }*/
 
             /* 성공했을때 시간추가하는부분 삭제
             if(time < 58.0f)
@@ -143,14 +159,6 @@ public class GameManager : MonoBehaviour
             }
             */
 
-            /*
-            if (cardsLeft == 2) // 이부분은 남은카드가 2개일때 바로 종료하는 코드인가? 일단 삭제
-            {
-                //EndText.SetActive(true);
-                //Time.timeScale = 0.0f;
-                GameOver();
-            }
-            */
         }
         else
         {
@@ -165,7 +173,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 RemainTime = 0.01f;
-                //GameOver();
+                endText.text = "Game Over!!";  // 시간 초과인 경우 게임 오버
+                GameOver();
             }
         }
 
@@ -176,19 +185,26 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         Time.timeScale = 0.0f;
-        if (PlayerPrefs.HasKey("BestScore") == false)
+
+        if (endText.text == "Clear!!")
         {
-            PlayerPrefs.SetFloat("BestScore" , RemainTime);
-        }
-        else
-        {
-            if(RemainTime < PlayerPrefs.GetFloat("BestScore"))
+            if (PlayerPrefs.HasKey("BestSText") == false)
             {
-                PlayerPrefs.SetFloat("BestScore", RemainTime);
+                PlayerPrefs.SetFloat("BestSText", RemainTime);
+            }
+            else
+            {
+                if (RemainTime < PlayerPrefs.GetFloat("BestSText"))
+                {
+                    PlayerPrefs.SetFloat("BestSText", RemainTime);
+                }
             }
         }
-        float BestScore = PlayerPrefs.GetFloat("BestScore");
-        EndText.SetActive(true);
-        BestScoreText.text = BestScore.ToString("N2");
+
+        float BestScore = PlayerPrefs.GetFloat("BestSText");
+
+        endTxt.SetActive(true);
+        BestSText.text = BestScore.ToString("N2");
+        isStart = false;
     }
 }
