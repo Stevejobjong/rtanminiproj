@@ -8,5 +8,5 @@ public class EntText : MonoBehaviour
    public void RetryGame()
    {
         SceneManager.LoadScene("MainScene");
-   }
+    }
 }

@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+         SoundManager.instance.bgSound.pitch = 1f; // 속도는 다시 원상태로 복구
          RemainTime = TimeLimit;
          int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 };
 
