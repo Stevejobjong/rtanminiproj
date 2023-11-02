@@ -248,6 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+  back_spriteRenderer: {fileID: 9026516771275037625}
   anim: {fileID: 7285712116355792787}
   CountDownText: {fileID: 6098032431522386004}
 --- !u!114 &4075155565514966849

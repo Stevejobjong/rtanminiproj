@@ -15,6 +15,7 @@ public static class Coroutine_Caching   //코루틴 최적화(캐싱하여 가�
 public class Card : MonoBehaviour {
     public float x, y;  //원래 카드의 좌표
 
+    public SpriteRenderer back_spriteRenderer;
     public Animator anim;
     public Text CountDownText;
  
@@ -23,6 +24,8 @@ public class Card : MonoBehaviour {
     private IEnumerator CountDown_Coroutine;
     private void Start()
     {
+        back_spriteRenderer = transform.Find("Back").GetComponent<SpriteRenderer>();
+
         CountDown_Coroutine = CountDownRoutine();
 
         //x값이 0보다 작거나 같으면 x-5의 위치에서 크면 x+5의 위치에서 시작
@@ -131,6 +134,7 @@ public class Card : MonoBehaviour {
         anim.SetBool("IsOpen", false);
         transform.Find("back").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
+        back_spriteRenderer.color = (Color)(new Color32(189, 189, 189, 255));
         GameManager.instance.twoselect = false;
     }
 
