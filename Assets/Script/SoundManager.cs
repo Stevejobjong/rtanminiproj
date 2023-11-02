@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource bgSound;
     public AudioClip[] bglist;
+
+    public AudioClip[] soundEffect = new AudioClip[5];
     [SerializeField] Slider Volume;
 
     public static SoundManager instance;
