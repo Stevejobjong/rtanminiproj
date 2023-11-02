@@ -3205,6 +3205,7 @@ MonoBehaviour:
   startCountDown: 3.99
   panelCanvas: {fileID: 5561831661016395778}
   twoselect: 0
+  bombcount: 6
 --- !u!4 &2013088382
 Transform:
   m_ObjectHideFlags: 0
