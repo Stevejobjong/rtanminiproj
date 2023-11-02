@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool isStart = false;
 
+    [HideInInspector]
     public float startCountDown = 3.99f;
     public GameObject panelCanvas;
 
