@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
     public AudioSource bgSound;
     public AudioClip[] bglist;
+    [SerializeField] Slider Volume;
 
     public static SoundManager instance;
 
@@ -36,6 +38,9 @@ public class SoundManager : MonoBehaviour
         }
         
 
+    }
+    private void Update() {
+        bgSound.volume = Volume.value;
     }
 
     public void SFXPlay(string sfxName, AudioClip clip)
