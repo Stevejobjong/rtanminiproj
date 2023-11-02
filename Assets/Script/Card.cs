@@ -50,7 +50,9 @@ public class Card : MonoBehaviour {
             transform.Find("front").gameObject.SetActive(true);
             transform.Find("back").gameObject.SetActive(false);
             string name = gameObject.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
-            if (name == "폭탄a2" || name == "폭탄b2" || name == "폭탄c2") {
+            if (name == "폭탄a2" || name == "폭탄b2" || name == "폭탄c2")
+            {
+                GameManager.instance.twoselect = true;
                 GameManager.instance.bombcount--;
                 Invoke("Bomb", 1.0f);
                 return;
@@ -143,7 +145,9 @@ public class Card : MonoBehaviour {
         back_spriteRenderer.color = (Color)(new Color32(189, 189, 189, 255));
         GameManager.instance.twoselect = false;
     }
-    void Bomb() {
+    void Bomb()
+    {
         Destroy(gameObject);
+        GameManager.instance.twoselect = false;
     }
 }

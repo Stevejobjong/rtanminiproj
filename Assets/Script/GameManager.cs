@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public bool twoselect = false;
+    [HideInInspector]
+    public bool isGameOver = false;
     public int bombcount = 6;
 
     public enum names { 임종운, 변정민, 조성민, 권오태, 김윤진, 폭탄a, 폭탄b, 폭탄c }
@@ -104,6 +106,7 @@ public class GameManager : MonoBehaviour
             if (RemainTime <= 0.0f)
             {
                 endText.text = "Game Over!!";  // 시간 초과인 경우 게임 오버
+                bg.GetComponent<Animator>().SetBool("warning", false); // 게임 종료 시 애니메이션 종료
                 GameOver();
             }
         }
@@ -143,15 +146,18 @@ public class GameManager : MonoBehaviour
             SecondCard.GetComponent<Card>().DestroyCard();
             int cardsLeft = GameObject.Find("Cards").transform.childCount;
             int remainingCards = cards.childCount;
+            int ramainCards = remainingCards - bombcount;  //  실제 없애야되는 카드의 수를 체크
+
 
             panelCanvas.GetComponent<PanelManager>().Openpanel(membernum);
 
-            if (remainingCards == 2 + bombcount || remainingCards == 3) 
+            if (ramainCards == 2) 
                 // 3인경우는 매칭카드2 폭탄 하나 남았을때 카드 폭탄 카드 순으로 빠르게 눌렀을때 클리어가 되지 않는 버그 해결해줌
                 // 카드 폭탄 카드 눌렀을때 폭탄이 바로 사라지는게 아니기 떄문에 매칭되더라도 카드가 3개 남아있는 걸로 인식됨
             {
                 Time.timeScale = 0.0f;
                 endText.text = "Clear!!";  // 남은 카드가 0인 경우 클리어
+                bg.GetComponent<Animator>().SetBool("warning", false); // 게임 종료 시 애니메이션 종료
                 GameOver();
             }
         }
@@ -167,7 +173,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                RemainTime = 0.01f;
+                RemainTime = 0.00f;
                 endText.text = "Game Over!!";  // 시간 초과인 경우 게임 오버
                 GameOver();
             }
@@ -204,9 +210,10 @@ public class GameManager : MonoBehaviour
 
         float BestScore = PlayerPrefs.GetFloat("BestSText");
 
-        endTxt.SetActive(true);
-        BestSText.text = BestScore.ToString("N2");
-        isStart = false;
+        endTxt.SetActive(true);  // endText 표시하기
+        BestSText.text = BestScore.ToString("N2"); // BestScore 표시
+        isStart = false;  // 시간 업데이트 멈추기
+        isGameOver = true;  // 게임이 끝났는지 확인하여 OpenCard() 함수 비활성화
         Invoke("Stopbgsound", 0.5f);
         SoundManager.instance.bgSound.pitch = 1f; // 속도는 다시 원상태로 복구
         Time.timeScale = 0.0f;
