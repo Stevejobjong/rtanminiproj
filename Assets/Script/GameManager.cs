@@ -222,4 +222,9 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.instance.bgSound.Stop(); // 게임오버될때 브금멈추기
     }
+
+    [ContextMenu("Delete best score")]
+    void DeleteScore() {
+        PlayerPrefs.DeleteKey("BestSText");
+    }
 }
