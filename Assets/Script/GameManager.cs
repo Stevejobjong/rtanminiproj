@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (RemainTime < PlayerPrefs.GetFloat("BestSText"))
+                if (RemainTime > PlayerPrefs.GetFloat("BestSText"))
                 {
                     PlayerPrefs.SetFloat("BestSText", RemainTime);
                 }
